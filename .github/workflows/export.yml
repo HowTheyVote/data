@@ -1,0 +1,39 @@
+name: Publish Current Export
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 3 * * 1'
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Store Current Date
+        id: date
+        run: echo "DATE=$(date +'%Y-%m-%d')" >> "$GITHUB_OUTPUT" 
+      - name: Checkout Data Repository
+        uses: actions/checkout@v4
+      - name: Configure `git`
+        run: |
+          git config user.name htv-bot
+          git config user.email mail@howtheyvote.eu
+      - name: Create new Commit and tag it
+        env: 
+          DATE: ${{ steps.date.outputs.DATE }}
+        run: |
+          git commit --allow-empty -m "Export from $DATE"
+          git push
+          git tag "$DATE"
+          git push origin tag "$DATE"
+      - name: Download current export
+        env: 
+          DATE: ${{ steps.date.outputs.DATE }}
+        run: |
+          wget https://howtheyvote.eu/files/export/export.zip
+          unzip -o -d export export.zip
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.date.outputs.DATE }}
+          files: export.zip
+          body_path: ./export/README.md
