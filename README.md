@@ -15,7 +15,7 @@ To download the current dataset click [here](https://github.com/HowTheyVote/data
 
 There, you will find the documentation for each data export. At the bottom of each export, you can download all files as a single `export.zip` file.
 
-![image](https://github.com/user-attachments/assets/22960e8a-0b5c-4397-9304-77edd3196868)
+![](img/export.png)
 
 ## Stable Links
 
