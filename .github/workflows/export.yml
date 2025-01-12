@@ -26,14 +26,16 @@ jobs:
           git tag "$DATE"
           git push origin tag "$DATE"
       - name: Download current export
-        env: 
-          DATE: ${{ steps.date.outputs.DATE }}
         run: |
           wget https://howtheyvote.eu/files/export/export.zip
           unzip -o -d export export.zip
+          gzip export/*.csv
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.date.outputs.DATE }}
-          files: export.zip
           body_path: ./export/README.md
+          files: |
+            export.zip
+            export/*.csv.gz
+            export/export_timestamp_utc.txt
