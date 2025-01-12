@@ -38,4 +38,4 @@ jobs:
           files: |
             export.zip
             export/*.csv.gz
-            export/export_timestamp_utc.txt
+            export/last_updated.txt
