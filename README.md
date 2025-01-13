@@ -21,6 +21,16 @@ There, you will find the documentation for each data export. At the bottom of ea
 
 Besides downloading the whole export as a single `.zip` file, you can also download individual files.
 
-These are provided as `csv.gz` files and are e.g., useful for scripting purposes. For example, the URL `https://github.com/HowTheyVote/data/releases/latest/votes.csv.gz` will always link to the latest available `Votes` CSV.
+These are provided as `csv.gz` files and are e.g., useful for scripting purposes. For example, the URL `https://github.com/HowTheyVote/data/releases/latest/download/votes.csv.gz` will always link to the latest available `Votes` CSV.
 
-We also provide a file called `export_timestamp_utc.txt`, in which the creation time of the export in UTC is stored.
+### How to: Load the export files into `pandas`
+
+As an illustration, using these stable links, the following snippet shows how you can load the `Votes` table from our export into a `pandas` dataframe. Executing this code will always load the latest available version of this file.
+
+```python
+import pandas as pd
+votes_df = pd.read_csv('https://github.com/HowTheyVote/data/releases/latest/download/votes.csv.gz', compression='gzip')
+votes_df.head()
+```
+
+We also provide a file called `last_updated.txt`, in which the creation time of the export is stored as a timestamp.
