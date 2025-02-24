@@ -23,6 +23,11 @@ Besides downloading the whole export as a single `.zip` file, you can also downl
 
 These are provided as `csv.gz` files and are e.g., useful for scripting purposes. For example, the URL `https://github.com/HowTheyVote/data/releases/latest/download/votes.csv.gz` will always link to the latest available `Votes` CSV.
 
+### How to: Decompress `.gz` files
+
+On mac/Linux: `gzip -d votes.csv.gz` will result in an uncompressed `votes.csv` file.
+On Windows: Using the Linux Subsystem for windows, above instructions will work. Otherwise, a tool like `7zip` can be used to decompress the file.
+
 ### How to: Load the export files into `pandas`
 
 As an illustration, using these stable links, the following snippet shows how you can load the `Votes` table from our export into a `pandas` dataframe. Executing this code will always load the latest available version of this file.
